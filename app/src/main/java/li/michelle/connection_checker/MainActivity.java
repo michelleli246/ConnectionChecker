@@ -5,6 +5,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -16,6 +17,14 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        final IntentFilter theFilter = new IntentFilter();
+        /** System Defined Broadcast */
+        theFilter.addAction(Intent.ACTION_SCREEN_ON);
+
+        getApplicationContext().registerReceiver(new StartActivityOnBoot(), theFilter);
+
+
         if(isNetworkConnected() == 1){
             setContentView(R.layout.wifi_on);
         }

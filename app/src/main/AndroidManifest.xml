@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="li.michelle.connection_checker">
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.RECEIVE_SCREEN_ON" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
@@ -28,6 +29,7 @@
                 <action android:name ="android.intent.action.QUICKBOOT_POWERON"/>
                 <action android:name ="android.intent.action.LOCKED_BOOT_COMPLETED"/>
                 <action android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+                <action android:name="android.permission.RECIEVE_SCREEN_ON"/>
                 <action android:name="android.action.USER_PRESENT"/>
                 <action android:name="android.action.USER_UNLOCKED"/>
                 <action android:name="android.permission.REBOOT"/>
