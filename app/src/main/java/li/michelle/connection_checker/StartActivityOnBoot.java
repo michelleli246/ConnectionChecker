@@ -11,7 +11,12 @@ public class StartActivityOnBoot extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent){
         String intentStr = intent.getAction();
         Log.d("tag", intentStr);
-        if (Intent.ACTION_SCREEN_ON.equals(intent.getAction())){
+        if (Intent.ACTION_USER_PRESENT.equals(intent.getAction())){
+            Intent i = new Intent(context, MainActivity.class);
+            i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(i);
+        }
+        /*if (Intent.ACTION_SCREEN_ON.equals(intent.getAction())){
             Intent i = new Intent(context, MainActivity.class);
             i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(i);
@@ -40,6 +45,6 @@ public class StartActivityOnBoot extends BroadcastReceiver {
             Intent i = new Intent(context, MainActivity.class);
             i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(i);
-        }
+        }*/
     }
 }
