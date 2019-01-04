@@ -1,55 +1,97 @@
 package li.michelle.connection_checker;
 
-import android.app.Notification;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.Context;
-import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
-import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.ToggleButton;
 
+///TODO:
+//1.toggle control state after app starts
+//2.distinguish oncreate is called by device unlock or user clicking app icon, see intent.putExtra()
+//3.
+
 public class MainActivity extends AppCompatActivity {
+    private String wifi = "wifi";
+    private String data = "data";
+    private String nocon = "nocon";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        ToggleButton data_t = (ToggleButton) findViewById(R.id.data_tog);
-        ToggleButton wifi_t = (ToggleButton) findViewById(R.id.wifi_tog);
-        ToggleButton nocon_t = (ToggleButton) findViewById(R.id.nocon_tog);
+         setContentView(R.layout.activity_main);
 
-        super.onCreate(savedInstanceState);
+         super.onCreate(savedInstanceState);
 
-        final IntentFilter theFilter = new IntentFilter();
+         final IntentFilter theFilter = new IntentFilter();
 
-        getApplicationContext().registerReceiver(new ScreenReceiver(), theFilter);
+         getApplicationContext().registerReceiver(new ScreenReceiver(), theFilter);
 
-        if(isNetworkConnected() == 2){
-            setContentView(R.layout.activity_main);
-            if(data_t != null){
-                performHeadsUpData();
-            }
-            //Kills app but it opens it for like a second so its kind of wonky
-            //System.exit(0);
+         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+
+         if(isNetworkConnected() == 2){
+             setContentView(R.layout.activity_main);
+             boolean data_state = sharedPreferences.getBoolean(data, true);
+             setTogs();
         }
+
         else if(isNetworkConnected() == 1){
-            setContentView(R.layout.wifi_on);
-            if(wifi_t != null) {
-                performHeadsUpWifi();
-            }
+             setContentView(R.layout.activity_main);
+             boolean wifi_state = sharedPreferences.getBoolean(wifi, false);
+             setTogs();
         }
+
+
         else{
-            setContentView(R.layout.no_connection);
-            if(nocon_t != null) {
-                performHeadsUpNoConnection();
-            }
+             setContentView(R.layout.activity_main);
+             boolean nocon_state = sharedPreferences.getBoolean(nocon, false);
+             setTogs();
         }
+    }
+
+    private void setTogs(){
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+
+        boolean wifi_state = sharedPreferences.getBoolean(wifi, false);
+        boolean data_state = sharedPreferences.getBoolean(data, false);
+        boolean nocon_state = sharedPreferences.getBoolean(nocon, false);
+
+        ToggleButton wifi_t = findViewById(R.id.wifi_tog);
+        wifi_t.setChecked(wifi_state);
+        wifi_t.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putBoolean(wifi, isChecked);
+                editor.commit();
+            }
+        });
+
+        ToggleButton data_t = findViewById(R.id.data_tog);
+        data_t.setChecked(data_state);
+        data_t.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putBoolean(data, isChecked);
+                editor.commit();
+            }
+        });
+
+        ToggleButton nocon_t = findViewById(R.id.nocon_tog);
+        nocon_t.setChecked(nocon_state);
+        nocon_t.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putBoolean(nocon, isChecked);
+                editor.commit();
+            }
+        });
     }
 
     private int isNetworkConnected() {
@@ -66,57 +108,6 @@ public class MainActivity extends AppCompatActivity {
         }else{
             return 0;
         }
-    }
-
-    public void performHeadsUpData(){
-        Intent intent = new Intent(MainActivity.this, MainActivity.class);
-        PendingIntent pi = PendingIntent.getActivity(MainActivity.this, 0, intent, 0);
-        Notification.Builder builder = new Notification.Builder(this);
-
-        builder.setContentTitle("Your data is on!")
-                .setContentText("text")
-                .setSmallIcon(R.mipmap.ic_launcher)
-                .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher))
-                .setContentIntent(pi)
-                .setVibrate(new long[] {Notification.DEFAULT_VIBRATE})
-                .setPriority(Notification.PRIORITY_MAX);
-        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        notificationManager.notify(0, builder.build());
-
-    }
-
-    public void performHeadsUpWifi(){
-        Intent intent = new Intent(MainActivity.this, MainActivity.class);
-        PendingIntent pi = PendingIntent.getActivity(MainActivity.this, 0, intent, 0);
-        Notification.Builder builder = new Notification.Builder(this);
-
-        builder.setContentTitle("Your wifi is on!")
-                .setContentText("text")
-                .setSmallIcon(R.mipmap.ic_launcher)
-                .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher))
-                .setContentIntent(pi)
-                .setVibrate(new long[] {Notification.DEFAULT_VIBRATE})
-                .setPriority(Notification.PRIORITY_MAX);
-        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        notificationManager.notify(0, builder.build());
-
-    }
-
-    public void performHeadsUpNoConnection(){
-        Intent intent = new Intent(MainActivity.this, MainActivity.class);
-        PendingIntent pi = PendingIntent.getActivity(MainActivity.this, 0, intent, 0);
-        Notification.Builder builder = new Notification.Builder(this);
-
-        builder.setContentTitle("No connection!")
-                .setContentText("text")
-                .setSmallIcon(R.mipmap.ic_launcher)
-                .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher))
-                .setContentIntent(pi)
-                .setVibrate(new long[] {Notification.DEFAULT_VIBRATE})
-                .setPriority(Notification.PRIORITY_MAX);
-        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        notificationManager.notify(0, builder.build());
-
     }
 }
 

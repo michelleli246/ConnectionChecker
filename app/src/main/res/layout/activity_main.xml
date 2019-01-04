@@ -9,73 +9,67 @@
     <ToggleButton
         android:id="@+id/data_tog"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="72dp"
-        android:layout_marginTop="68dp"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:checked="true"
         android:text="ToggleButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintBaseline_toBaselineOf="@+id/data_tog_text"
+        app:layout_constraintStart_toStartOf="@+id/wifi_tog" />
 
     <ToggleButton
         android:id="@+id/wifi_tog"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:checked="false"
         android:text="ToggleButton"
-        app:layout_constraintBottom_toTopOf="@+id/nocon_tog"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/wifi_tog_text"
-        app:layout_constraintTop_toBottomOf="@+id/data_tog"
-        app:layout_constraintVertical_bias="0.485" />
+        app:layout_constraintBaseline_toBaselineOf="@+id/wifi_tog_text"
+        app:layout_constraintStart_toStartOf="@+id/nocon_tog" />
 
     <ToggleButton
         android:id="@+id/nocon_tog"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="132dp"
+        android:layout_height="0dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
+        android:layout_weight="1"
+        android:checked="false"
         android:text="ToggleButton"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.413"
-        app:layout_constraintStart_toEndOf="@+id/nocon_tog_text" />
+        app:layout_constraintBaseline_toBaselineOf="@+id/nocon_tog_text"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
         android:id="@+id/data_tog_text"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="88dp"
+        android:layout_height="0dp"
+        android:layout_weight="0"
         android:text="Send data notifs?"
-        app:layout_constraintEnd_toStartOf="@+id/data_tog"
-        app:layout_constraintHorizontal_bias="0.426"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        tools:layout_editor_absoluteX="62dp"
+        tools:layout_editor_absoluteY="88dp" />
 
     <TextView
         android:id="@+id/wifi_tog_text"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="72dp"
-        android:layout_marginTop="108dp"
+        android:layout_height="0dp"
+        android:layout_weight="0"
         android:text="Send wifi notifs?"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/data_tog_text" />
+        tools:layout_editor_absoluteX="62dp"
+        tools:layout_editor_absoluteY="260dp" />
 
     <TextView
         android:id="@+id/nocon_tog_text"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginStart="72dp"
-        android:layout_marginTop="8dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_weight="0"
         android:text="Send no connection notifs?"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/wifi_tog_text"
-        app:layout_constraintVertical_bias="0.443" />
+        app:layout_constraintStart_toStartOf="@+id/guideline2"
+        tools:layout_editor_absoluteY="381dp" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="54dp" />
+
 </android.support.constraint.ConstraintLayout>
