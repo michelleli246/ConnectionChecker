@@ -30,46 +30,44 @@
         android:id="@+id/nocon_tog"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:layout_marginEnd="8dp"
         android:layout_weight="1"
         android:checked="false"
         android:text="ToggleButton"
         app:layout_constraintBaseline_toBaselineOf="@+id/nocon_tog_text"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/nocon_tog_text" />
 
     <TextView
         android:id="@+id/data_tog_text"
         android:layout_width="wrap_content"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_weight="0"
-        android:text="Send data notifs?"
-        tools:layout_editor_absoluteX="62dp"
-        tools:layout_editor_absoluteY="88dp" />
+        android:text="Send notifications for \ndata network connection?"
+        app:layout_constraintBottom_toTopOf="@+id/wifi_tog_text"
+        app:layout_constraintStart_toStartOf="@+id/wifi_tog_text"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/wifi_tog_text"
         android:layout_width="wrap_content"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_weight="0"
-        android:text="Send wifi notifs?"
-        tools:layout_editor_absoluteX="62dp"
-        tools:layout_editor_absoluteY="260dp" />
+        android:text="Send notifications for \nwifi network connection?"
+        app:layout_constraintBottom_toTopOf="@+id/nocon_tog_text"
+        app:layout_constraintStart_toStartOf="@+id/nocon_tog_text"
+        app:layout_constraintTop_toBottomOf="@+id/data_tog_text" />
 
     <TextView
         android:id="@+id/nocon_tog_text"
         android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_marginStart="8dp"
-        android:layout_weight="0"
-        android:text="Send no connection notifs?"
-        app:layout_constraintStart_toStartOf="@+id/guideline2"
-        tools:layout_editor_absoluteY="381dp" />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline2"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="54dp" />
+        android:layout_weight="0"
+        android:text="Send notifications if \nno network connection?"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/nocon_tog"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/wifi_tog_text" />
 
 </android.support.constraint.ConstraintLayout>

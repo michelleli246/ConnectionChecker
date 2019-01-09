@@ -11,11 +11,6 @@ import android.os.Bundle;
 import android.widget.CompoundButton;
 import android.widget.ToggleButton;
 
-///TODO:
-//1.toggle control state after app starts
-//2.distinguish oncreate is called by device unlock or user clicking app icon, see intent.putExtra()
-//3.
-
 public class MainActivity extends AppCompatActivity {
     private String wifi = "wifi";
     private String data = "data";
@@ -33,13 +28,13 @@ public class MainActivity extends AppCompatActivity {
 
          SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
-         if(isNetworkConnected() == 2){
+         if(isNetworkConnected() == 1){
              setContentView(R.layout.activity_main);
              boolean data_state = sharedPreferences.getBoolean(data, true);
              setTogs();
         }
 
-        else if(isNetworkConnected() == 1){
+        else if(isNetworkConnected() == 2){
              setContentView(R.layout.activity_main);
              boolean wifi_state = sharedPreferences.getBoolean(wifi, false);
              setTogs();
@@ -56,20 +51,9 @@ public class MainActivity extends AppCompatActivity {
     private void setTogs(){
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
+        boolean data_state = sharedPreferences.getBoolean(data, true);
         boolean wifi_state = sharedPreferences.getBoolean(wifi, false);
-        boolean data_state = sharedPreferences.getBoolean(data, false);
         boolean nocon_state = sharedPreferences.getBoolean(nocon, false);
-
-        ToggleButton wifi_t = findViewById(R.id.wifi_tog);
-        wifi_t.setChecked(wifi_state);
-        wifi_t.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putBoolean(wifi, isChecked);
-                editor.commit();
-            }
-        });
 
         ToggleButton data_t = findViewById(R.id.data_tog);
         data_t.setChecked(data_state);
@@ -78,6 +62,17 @@ public class MainActivity extends AppCompatActivity {
                 SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putBoolean(data, isChecked);
+                editor.commit();
+            }
+        });
+
+        ToggleButton wifi_t = findViewById(R.id.wifi_tog);
+        wifi_t.setChecked(wifi_state);
+        wifi_t.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putBoolean(wifi, isChecked);
                 editor.commit();
             }
         });
@@ -98,9 +93,9 @@ public class MainActivity extends AppCompatActivity {
         ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
         if(activeNetwork != null && activeNetwork.isConnectedOrConnecting()) {
-            if (activeNetwork.getType() == ConnectivityManager.TYPE_WIFI) {
+            if (activeNetwork.getType() == ConnectivityManager.TYPE_MOBILE) {
                 return 1;
-            } else if (activeNetwork.getType() == ConnectivityManager.TYPE_MOBILE) {
+            } else if (activeNetwork.getType() == ConnectivityManager.TYPE_WIFI) {
                 return 2;
             } else {
                 return 0;
