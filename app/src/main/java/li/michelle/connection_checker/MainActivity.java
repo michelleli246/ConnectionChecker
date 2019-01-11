@@ -28,24 +28,9 @@ public class MainActivity extends AppCompatActivity {
 
          SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
-         if(isNetworkConnected() == 1){
-             setContentView(R.layout.activity_main);
-             boolean data_state = sharedPreferences.getBoolean(data, true);
-             setTogs();
-        }
+         setContentView(R.layout.activity_main);
 
-        else if(isNetworkConnected() == 2){
-             setContentView(R.layout.activity_main);
-             boolean wifi_state = sharedPreferences.getBoolean(wifi, false);
-             setTogs();
-        }
-
-
-        else{
-             setContentView(R.layout.activity_main);
-             boolean nocon_state = sharedPreferences.getBoolean(nocon, false);
-             setTogs();
-        }
+         setTogs();
     }
 
     private void setTogs(){
@@ -87,22 +72,6 @@ public class MainActivity extends AppCompatActivity {
                 editor.commit();
             }
         });
-    }
-
-    private int isNetworkConnected() {
-        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
-        if(activeNetwork != null && activeNetwork.isConnectedOrConnecting()) {
-            if (activeNetwork.getType() == ConnectivityManager.TYPE_MOBILE) {
-                return 1;
-            } else if (activeNetwork.getType() == ConnectivityManager.TYPE_WIFI) {
-                return 2;
-            } else {
-                return 0;
-            }
-        }else{
-            return 0;
-        }
     }
 }
 
