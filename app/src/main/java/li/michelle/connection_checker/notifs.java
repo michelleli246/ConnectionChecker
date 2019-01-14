@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.preference.PreferenceManager;
@@ -79,8 +80,9 @@ public class notifs extends IntentService {
 
         builder.setContentTitle("Data network connected!")
                 .setContentText("Touch to adjust notification settings")
-                .setSmallIcon(R.mipmap.ic_launcher)
-                .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher))
+                .setSmallIcon(R.drawable.dooricon)
+                .setColor(Color.parseColor("#f14074"))
+                //.setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher))
                 .setContentIntent(pi)
                 .setVibrate(new long[] {Notification.DEFAULT_VIBRATE})
                 .setPriority(Notification.PRIORITY_MAX);
@@ -95,8 +97,9 @@ public class notifs extends IntentService {
 
         builder.setContentTitle("Wifi network connected!")
                 .setContentText("Touch to adjust notification settings")
-                .setSmallIcon(R.mipmap.ic_launcher)
-                .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher))
+                .setSmallIcon(R.drawable.dooricon)
+                .setColor(Color.parseColor("#f14074"))
+                //.setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher))
                 .setContentIntent(pi)
                 .setVibrate(new long[] {Notification.DEFAULT_VIBRATE})
                 .setPriority(Notification.PRIORITY_MAX);
@@ -111,8 +114,9 @@ public class notifs extends IntentService {
 
         builder.setContentTitle("No network connection!")
                 .setContentText("Touch to adjust notification settings")
-                .setSmallIcon(R.mipmap.ic_launcher)
-                .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher))
+                .setSmallIcon(R.drawable.dooricon)
+                .setColor(Color.parseColor("#f14074"))
+                //.setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher))
                 .setContentIntent(pi)
                 .setVibrate(new long[] {Notification.DEFAULT_VIBRATE})
                 .setPriority(Notification.PRIORITY_MAX);
